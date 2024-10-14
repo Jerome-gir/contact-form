@@ -78,43 +78,52 @@ export default function ContactForm() {
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field, fieldState }) => (
-              <FormItem>
-                <FormLabel className="text-black text-base cursor-pointer">
-                  First Name *
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    className={fieldState.invalid ? "border-red" : ""}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field, fieldState }) => (
-              <FormItem>
-                <FormLabel className="text-black text-base cursor-pointer">
-                  Last Name *
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    className={fieldState.invalid ? "border-red" : ""}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-4 sm:space-y-6"
+        >
+          <div className="sm:flex sm:space-x-3 space-y-4 sm:space-y-0">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field, fieldState }) => (
+                <FormItem className="flex-1">
+                  <FormLabel className="text-black text-base cursor-pointer">
+                    First Name *
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      className={`sm:w-96 sm:h-12 hover:border-green-600 cursor-pointer ${
+                        fieldState.invalid ? "border-red" : ""
+                      }`}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field, fieldState }) => (
+                <FormItem className="flex-1">
+                  <FormLabel className="text-black text-base cursor-pointer">
+                    Last Name *
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      className={`sm:w-96 sm:h-12 hover:border-green-600 cursor-pointer ${
+                        fieldState.invalid ? "border-red" : ""
+                      }`}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <FormField
             control={form.control}
             name="email"
@@ -127,7 +136,9 @@ export default function ContactForm() {
                   <Input
                     placeholder="johndoe@example.com"
                     {...field}
-                    className={fieldState.invalid ? "border-red" : ""}
+                    className={`sm:h-12 hover:border-green-600 cursor-pointer ${
+                      fieldState.invalid ? "border-red" : ""
+                    }`}
                   />
                 </FormControl>
                 <FormMessage />
@@ -146,32 +157,36 @@ export default function ContactForm() {
                   <RadioGroup
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    className="flex flex-col space-y-1"
+                    className="sm:flex sm:space-x-3 space-y-1 sm:space-y-0"
                   >
                     <div
-                      className={`border rounded-md p-2 ${
-                        fieldState.invalid ? "border-red" : ""
-                      }`}
+                      className={`sm:flex sm:h-12 border rounded-md p-2 flex-1 hover:border-green-600 cursor-pointer ${
+                        field.value === "General Enquiry"
+                          ? "bg-green-200 border-green-600 text-white"
+                          : "hover:border-green-600"
+                      } ${fieldState.invalid ? "border-red" : ""}`}
                     >
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center pl-4 space-x-3 space-y-0">
                         <FormControl>
                           <RadioGroupItem value="General Enquiry" />
                         </FormControl>
-                        <FormLabel className="font-normal text-black text-base cursor-pointer">
+                        <FormLabel className="font-normal text-black text-base sm:text-lg cursor-pointer">
                           General Enquiry
                         </FormLabel>
                       </FormItem>
                     </div>
                     <div
-                      className={`border rounded-md p-2 mt-2 ${
-                        fieldState.invalid ? "border-red" : ""
-                      }`}
+                      className={`sm:flex sm:h-12 border rounded-md p-2 mt-2 sm:mt-0 flex-1 hover:border-green-600 cursor-pointer ${
+                        field.value === "Support Request"
+                          ? "bg-green-200 border-green-600 text-white"
+                          : "hover:border-green-600"
+                      } ${fieldState.invalid ? "border-red" : ""}`}
                     >
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="pl-4  flex items-center space-x-3 space-y-0">
                         <FormControl>
                           <RadioGroupItem value="Support Request" />
                         </FormControl>
-                        <FormLabel className="font-normal text-black text-base cursor-pointer">
+                        <FormLabel className="font-normal text-black text-base sm:text-lg cursor-pointer">
                           Support Request
                         </FormLabel>
                       </FormItem>
@@ -193,7 +208,7 @@ export default function ContactForm() {
                 <FormControl>
                   <Textarea
                     placeholder="Type your message here."
-                    className={`resize-none h-52 ${
+                    className={`resize-none text-lg h-52 sm:h-32 hover:border-green-600 cursor-pointer ${
                       fieldState.invalid ? "border-red" : ""
                     }`}
                     {...field}
@@ -212,9 +227,9 @@ export default function ContactForm() {
                   <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
+                    className={field.value ? "bg-green-200" : ""}
                   />
                 </FormControl>
-
                 <div className="space-y-1 leading-none">
                   <FormLabel className="text-black cursor-pointer">
                     I consent to being contacted by the team *
@@ -224,14 +239,14 @@ export default function ContactForm() {
               </FormItem>
             )}
           />
-          <Button className="w-full bg-green-600 hover:bg-green-600 text-base font-bold">
+          <Button className="w-full h-12 bg-green-600 hover:bg-green-600 text-base sm:text-lg font-bold">
             Submit
           </Button>
         </form>
       </Form>
       <ToastContainer
         toastClassName={() =>
-          "relative flex  p-4 rounded-md bg-green-600 text-white text-lg w-[440px]"
+          "relative flex p-4 rounded-md bg-green-600 text-white text-lg w-[440px]"
         }
       />
     </>
